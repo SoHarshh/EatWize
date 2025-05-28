@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# If you ever install Tailwind or other tools via npm
+node_modules/
+
+# Output directories for build processes (if you add one later)
+dist/
+build/
