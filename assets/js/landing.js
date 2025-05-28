@@ -15,13 +15,33 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         
         // Get the zip code value
-        const zipCode = zipCodeInput.value.trim();
+        const zipCode = zipCodeInput?.value?.trim() || '';
         
         // Log the zip code
         console.log('Zip code entered:', zipCode);
         
         if (!zipCode) {
-            alert('Please enter a zip code to find meals in your area.');
+            // If no zip code entered, prompt for one
+            const userZip = prompt('Please enter your zip code to find meals in your area:');
+            if (!userZip) {
+                alert('Zip code is required to find meals.');
+                return;
+            }
+            
+            // Validate the prompted zip code
+            const zipCodePattern = /^\d{5}$/;
+            if (!zipCodePattern.test(userZip.trim())) {
+                alert('Please enter a valid 5-digit zip code.');
+                return;
+            }
+            
+            // Use the prompted zip code
+            localStorage.setItem('userZipCode', userZip.trim());
+            console.log('Zip code stored in localStorage:', userZip.trim());
+            
+            // Navigate to find-meal page
+            console.log('Navigating to find-meal.html with zip code:', userZip.trim());
+            window.location.href = `find-meal.html?zip=${encodeURIComponent(userZip.trim())}`;
             return;
         }
         
@@ -60,17 +80,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Method 2: Handle form submission if the input is in a form
-    const zipForm = zipCodeInput.closest('label');
+    const zipForm = zipCodeInput?.closest('label');
     if (zipForm) {
         zipForm.addEventListener('submit', handleZipCodeSearch);
     }
     
     // Method 3: Handle Enter key press on the zip code input
-    zipCodeInput.addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            handleZipCodeSearch(event);
-        }
-    });
+    if (zipCodeInput) {
+        zipCodeInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                handleZipCodeSearch(event);
+            }
+        });
+    }
     
     console.log('Landing page JavaScript setup complete');
 }); 
