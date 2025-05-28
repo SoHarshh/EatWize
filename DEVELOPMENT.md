@@ -4,11 +4,20 @@
 
 ### 1. Start Development Server
 ```bash
+# Easy way (handles port conflicts automatically)
+./start-server.sh
+
+# Manual way
 python3 -m http.server 3000
 ```
 Then open: `http://localhost:3000`
 
-### 2. Make Changes and Save to GitHub
+### 2. Stop Development Server
+```bash
+./stop-server.sh
+```
+
+### 3. Make Changes and Save to GitHub
 ```bash
 ./commit-changes.sh "Your commit message here"
 ```
@@ -28,6 +37,8 @@ EatWize/
 │   │   └── find-meal.js    # Meal finder functionality
 │   ├── css/                # Add your custom CSS here
 │   └── images/             # Add meal images here
+├── start-server.sh         # Start development server (handles conflicts)
+├── stop-server.sh          # Stop development server
 ├── commit-changes.sh       # Helper script for Git commits
 ├── DEVELOPMENT.md          # This file
 └── README.md              # Project documentation
